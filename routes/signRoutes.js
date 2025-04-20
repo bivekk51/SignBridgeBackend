@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const signController = require("../controllers/signController");
+const {getAllSigns,getSignByLabel} = require("../controllers/signController");
 
-router.get("/", signController.getAllSigns);
-router.get("/:label", signController.getSignByLabel);
+router.get("/", getAllSigns);
+router.get("/:label",getSignByLabel);
 
 
 module.exports = router;
