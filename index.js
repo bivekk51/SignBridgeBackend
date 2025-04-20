@@ -24,6 +24,10 @@ const authRoutes = require('./routes/AuthRoutes');
 app.use('/api/auth', authRoutes);
 
 
+//signRoutes haru 
+
+const signRoutes=require('./routes/signRoutes')
+app.use('/api/signs',signRoutes)
 //PDF ko routes haru 
 const pdfRoutes = require('./routes/pdfRoutes');
 app.use('/api/pdfs', pdfRoutes);
