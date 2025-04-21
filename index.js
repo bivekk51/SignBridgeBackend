@@ -33,7 +33,7 @@ const pdfRoutes = require('./routes/pdfRoutes');
 app.use('/api/pdfs', pdfRoutes);
 
 //App chalyo
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT,'0.0.0.0', () => {
     console.log('Server running...');
   });
   

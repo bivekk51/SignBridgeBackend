@@ -1,15 +1,16 @@
 const Sign = require("../models/signModels");
 
+
 const getAllSigns = async (req, res) => {
   try {
-    const { dataset, label } = req.query;
+    const { language, label } = req.query;
 
     const filter = {};
-    if (dataset) {
-      filter.dataset = dataset.toUpperCase(); // "asl" → "ASL"
+    if (language) {
+      filter.language = language.toLowerCase(); // e.g., "ASL" → "asl"
     }
     if (label) {
-      filter.label = label.toLowerCase(); // "A" → "a"
+      filter.label = label.toLowerCase(); // e.g., "A" → "a"
     }
 
     const signs = await Sign.find(filter);
@@ -19,7 +20,6 @@ const getAllSigns = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch signs" });
   }
 };
-
 const getSignByLabel = async (req, res) => {
   try {
     const { label } = req.params;
@@ -35,6 +35,7 @@ const getSignByLabel = async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve sign" });
   }
 };
+
 
 module.exports = {
   getAllSigns,
