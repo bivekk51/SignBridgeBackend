@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const signSchema = new mongoose.Schema({
   label: { type: String, required: true },
-  url: { type: String, required: true },          // Replaces `image`
+  url: { type: String, required: true },          
   file_id: { type: String, required: true },
-  dataset: { type: String, required: true },      // Replaces `language`
+  dataset: { type: String, required: true },    
        // Optional, but useful
 }, { timestamps: true });
 
-module.exports = mongoose.model("Sign", signSchema);
+const Sign = mongoose.model("Sign", signSchema);
+module.exports=Sign
