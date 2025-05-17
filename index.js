@@ -1,7 +1,7 @@
 const express=require('express')
 
 const app=express()
-const PORT=3000
+
 
 
 //db config import
@@ -20,8 +20,8 @@ app.use(cors())
 
 //Setting up Auth  routes 
 
-const authRoutes = require('./routes/AuthRoutes');
-app.use('/api/auth', authRoutes);
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
 
 
 //signRoutes haru 
@@ -33,7 +33,8 @@ const pdfRoutes = require('./routes/pdfRoutes');
 app.use('/api/pdfs', pdfRoutes);
 
 //App chalyo
-app.listen(process.env.PORT, () => {
-    console.log('Server running...');
+const PORT=process.env.PORT
+app.listen(PORT, () => {
+    console.log('Server running on port',PORT);
   });
   

@@ -26,14 +26,16 @@ const uploadPDF = async (req, res) => {
   }
 };
 
+
 const getAllPDFs = async (req, res) => {
   try {
-    const pdfs = await PDF.find({}, 'title language theme uploadedAt');
+    const pdfs = await PDF.find({}, 'title language basis uploadedAt');
     res.status(200).json(pdfs);
   } catch (err) {
     res.status(500).json({ message: "Failed to retrieve PDFs" });
   }
 };
+
 
 const getPDFById = async (req, res) => {
   try {
@@ -47,4 +49,46 @@ const getPDFById = async (req, res) => {
   }
 };
 
-module.exports = { uploadPDF, getAllPDFs, getPDFById };
+
+const updatePDF = async (req, res) => {
+  try {
+    const { title, language, basis } = req.body;
+    const updateData = { title, language, basis };
+
+  
+    if (req.file) {
+      updateData.pdf = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
+    }
+
+    const updatedPDF = await PDF.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    if (!updatedPDF) return res.status(404).json({ message: "PDF not found" });
+
+    res.status(200).json({ message: "PDF updated successfully", pdf: updatedPDF });
+  } catch (err) {
+    console.error("Update Error:", err);
+    res.status(500).json({ message: "Failed to update PDF" });
+  }
+};
+
+const deletePDF = async (req, res) => {
+  try {
+    const deletedPDF = await PDF.findByIdAndDelete(req.params.id);
+    if (!deletedPDF) return res.status(404).json({ message: "PDF not found" });
+
+    res.status(200).json({ message: "PDF deleted successfully" });
+  } catch (err) {
+    console.error("Delete Error:", err);
+    res.status(500).json({ message: "Failed to delete PDF" });
+  }
+};
+
+module.exports = {
+  uploadPDF,
+  getAllPDFs,
+  getPDFById,
+  updatePDF,
+  deletePDF
+};
