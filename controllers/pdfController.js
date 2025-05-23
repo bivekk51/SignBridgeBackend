@@ -30,7 +30,17 @@ const uploadPDF = async (req, res) => {
 const getAllPDFs = async (req, res) => {
   try {
     const pdfs = await PDF.find({}, 'title language basis uploadedAt');
-    res.status(200).json(pdfs);
+    
+    const pdfsWithLinks = pdfs.map(pdf => ({
+      _id: pdf._id,
+      title: pdf.title,
+      language: pdf.language,
+      basis: pdf.basis,
+      uploadedAt: pdf.uploadedAt,
+      downloadUrl: `${req.protocol}://${req.get('host')}/api/pdfs/${pdf._id}`  // <- This is important
+    }));
+
+    res.status(200).json(pdfsWithLinks);
   } catch (err) {
     res.status(500).json({ message: "Failed to retrieve PDFs" });
   }
