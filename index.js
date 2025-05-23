@@ -32,6 +32,10 @@ app.use('/api/signs',signRoutes)
 const pdfRoutes = require('./routes/pdfRoutes');
 app.use('/api/pdfs', pdfRoutes);
 
+//signWords ko routes haru 
+
+const signwordRoutes=require('./routes/signwordRoutes')
+app.use('/api/signwords',signwordRoutes)
 //App chalyo
 const PORT=process.env.PORT
 app.listen(PORT, () => {
